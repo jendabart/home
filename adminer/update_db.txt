@@ -1,0 +1,112 @@
+Kompletní update z vývojové DB na produkční DB
+----------------------------------------------
+
+Upozornění: 	Tento update je poměrně komplikovaná záležitost a zejména ze začátku
+				je třeba dbát zvýšené pozornosti.
+			
+Proč?:			Naše DB se pod tlakem požadavků rychle vyvíjí a při aktualizaci CMS
+				je to stěžejní krok. Nejen, že je potřeba správně aktualizovat
+				aplikaci samotnou (správně přehrát adekvátní soubory z vývojové
+				verze do ostré verze), ale je nutno zaručit, že funkce datového
+				modelu mohou spolehlivě přistupovat k databázi, kolem které byly
+				navrženy. Integrita dat je u informačních systémů stěžejní a proto
+				je nutno dbát na to, aby databáze byla aktuální.
+				
+Princip:		Primárním úkolem je přenést kompletní strukturu DB z vývojového
+				projektu CMS do webu, který aktualizujeme při zachování integrity
+				dat.
+			
+Utility?:		Ze zkušenosti se mi osvědčilo použití admineru i phpMyAdminu zároveň
+				V případě admineru je nutno mít zapnuto rozšíření dump-alter
+				(každá utlita poskytuje něco esenciálního, je tedy nutné použít oboje)
+				Také bude potřeba nějaký textový editor (nejlépe ten zvládající UTF-8)
+				
+Postup:			1) Provdeme tzv. Alter-Export v admineru z vývojového projektu
+				Prakticky:
+					a) Ve vývojové DB zvolíme export
+					b) Zvolíme formát "alter"
+					c) Vypneme "triggery"
+					d) Zvolíme, tabulky, které chceme exportovat (tj. všechny)
+					e) Data není nutno exportovat, ale je to jedno, alter je 
+					   stejně ignoruje
+					f) Exportujeme do SQL dotazu kliknutím na export
+				2) Předchozím krokem jsme vytvořili jakýsi soubor meta-dotazů. 
+				   Pokud tento soubor nyní importujeme do produkční DB, automaticky
+				   nám v produkční DB vytvoří tabulky, které vznikly ve vývojové DB
+				   a nabídne k provedení soubor dotazů, jejichž provedením dojde
+				   k aktualizaci struktury již existujících tabulek v produkční DB 
+				   na strukturu vývojové DB.
+				   Konkrétně je to sada SQL příkazů, začínající "ALTER TABLE ..."
+				3) Ve většině případů je možno tyto dotazy ihned provést a tím
+				   strukturu aktualizovat, ovšem občas se to nevyvede úplně bez
+				   problémů, proto spustíme před jejich vykonáním tento SQL dotaz:
+				   SET foreign_key_checks = 0;
+				4) Nyní je možno zkopírovat vygenerované "ALTER TABLE..." dotazy
+				   a spustit je v SQL okénku
+				5) Zapneme hlídání cizích klíčů:
+				   SET foreign_key_checks = 1;
+				6) V některých případech tohle úplně postačí, ale ze zkušenosti
+				   je bohužel nutno vykonat ještě pár kroků navíc (občas totiž
+				   bohužel nedojde k ideálnímu exportu cizích klíčů, což může být 
+				   pro fungování aplikace fatální)
+				7) Nyní vygenerujeme příkazy pro odstranění všech cizích klíčů tímto 
+				   příkazem:
+				   SELECT concat('ALTER TABLE ', TABLE_NAME, ' DROP FOREIGN KEY ', CONSTRAINT_NAME, ';') FROM information_schema.key_column_usage WHERE CONSTRAINT_SCHEMA = 'jmeno_db' AND referenced_table_name IS NOT NULL
+				   (nezapomeňte zaměnit "jmeno_db" za opravdové jméno produkční DB
+				8) Opět dostaneme sadu "ALTER TABLE ..." příkazů, které provedeme
+				9) Produkční DB je nyní ve stavu bez cizích klíčů, nyní nastoupí
+				   pomoc z phpMyAdmin-u
+				10) V phpMyAdminu provedeme export vývojové DB do SQL (není nutno 
+					exportovat data)
+				11) Někde na konci .sql souboru, který phpMyAdmin vygeneroval by 
+					měla být sada příkazů "ALTER TABLE ... ADD CONSTRAINT"
+				12) Pouze tyhle příkazy nás z celého souboru zajímají, proto
+					je "vyřízneme" a soubor uložíme 
+					Pozor: Nic jiného, než tyto příkazy v souboru neponecháme
+						   (ani před, ani za těmito příkazy)
+				13) Opět, ideální postup je před tyto vyextrahované příkazy přidat:
+					SET foreign_key_checks = 0;
+					a za ně potom:
+					SET foreign_key_checks = 1;
+					Soubor uložíme.
+				14) Posledním krokem je import takto vytvořeného souboru do produkční
+					DB.
+				15) Po aktualizaci vlastní struktury DB je nutné ještě importovat
+					admin-slovník z vývojového projektu (tj. tabulky base_wordsAdmin
+					a base_wordsAdminLang), případně je ještě možno importovat
+					i frontend slovník (base_words a base_wordsLang), ale v tomto
+					případě pozor na přepsání již existujících překladů (ideální
+					je vložit pouze slova, která nemají v produkční DB placeholder
+					a zbytek ignorovat - dá se udělat tak, že se v admineru
+					vyexportují do SQL tabulky base_words a base_wordsLang (při VYPNUTÉM
+					table DROP + CrEATE) a následnou modifikací vyexportovaného
+					souboru - změníme INSERT přikazy na INSERT IGNORE 
+				16) Pokud chceme do produkční DB dostat/zapnout nové moduly, pak
+					je třeba z vývojové do produkční DB překopírovat i tabulky 
+					base_modules, base_modulesLang, base_moduleParts a
+					base_modulePartsLang a po aktualizaci webu zkontrolovat,
+					že jsou zapnuté/vypnuté správné moduly
+					V případě, že  má být zapnut modul kontakty, zkontrolujeme,
+					že  tabulka base_contactPage má v sobě záznam s ID 1
+					Zkontrolujeme, že v base_messages a base_messagesLang
+					jsou systémové zprávy - momentálne ID 5 - registrace a ID 6 -
+					expediční prázdniny (ale ideální by bylo nahrát všechny zprávy,
+					pokud ještě na produkčním systému neexistují)
+					Dále je vhodné importovat stav objednávky s ID 30 - "Vyřízeno",
+					pokud ještě na produkčním neexistuje
+				17) Nyní se pokusíme web spustit a případně vyřešit konfilkty, které
+					mohly vzniknout (např. pokud někdo potřeboval udělat změnu v presenteru
+					a přejmenoval jej na jiné jméno - bude nutné provést merge nové verze
+					souboru se změnami, které byly v produkčním souboru)
+				18) Et voilà! Máme krásnou, aktualizovanou DB, která už se nemůže
+					dočkat další aktualizace!
+					
+Praktické poznámky:
+Očividně je tento postup poměrně časově (občas i psychicky) náročný, proto by bylo
+ideální prodělat tuto transformaci na localhostu, případně někdy mimo období špičky
+(v noci).
+Pokud si to nemůžeme dovolit, je třeba na chvíli znemožnit transakce způsobené
+uživateli webu, tj. web v čase aktualizace "vypnout" a zobrazit nějakou "maintenance"			
+hlášku. To, že web pár minut nepojede je určitě lepší, než způsobit nějakou katastrofu,
+se kterou si nebudeme vědět rady.
+
