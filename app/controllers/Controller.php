@@ -2,6 +2,11 @@
 abstract class Controller{
 	protected $data = array();
 	protected $template = "";
+	protected $database;
+
+	public function __construct($database = ""){
+		$this->database = $database;
+	}
 
 	abstract function run($param);
 

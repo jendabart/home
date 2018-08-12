@@ -8,7 +8,7 @@ class RouterController extends Controller{
 			$this->redirectTo('homepage');
 		$nameOfController = $this->camelCase(array_shift($onParseUrl))."Controller";
 		if(file_exists('app/controllers/'.$nameOfController.'.php'))
-			$this->controller = new $nameOfController;
+			$this->controller = new $nameOfController($this->database);
 		else
 			$this->redirectTo('error');
 		$this->controller->run($onParseUrl);

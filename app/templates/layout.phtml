@@ -1,12 +1,101 @@
 <!DOCTYPE html>
-<html lang="cs-cz">
-        <head>
-                <base href="/localhost" />
-                <meta charset="UTF-8" />
-                <title><?= $title ?></title>
-        </head>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Design</title>
 
-        <body>
-                <?php $this->controller->renderTemplate(); ?>
-        </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="frontend/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="frontend/css/style.css" />
+  
+
+    <!--<script src="js/jquery.js"></script>-->
+   
+</head>
+    <body>
+    <!-- NAVIGACE -->	
+	<nav id="navigace">
+		<ul>
+			<li><a href="/">Úvod</a></li>
+			<li><a href="/vypis">Výpis</a></li>
+			<li><a href="/pridat">Přidat</a></li>
+			<li><a href="/admin">Admin</a></li>
+		</ul>
+	</nav>
+	
+	<!-- HEADER -->
+	<header id="hlavicka">
+		<h1>Naše domácnost...</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<div class="tlacitka">
+			<a href="/vypis" class="btn-light">Výpis</a>
+			<a href="/pridat" class="btn-light">Přidat</a>
+		</div>
+	</header>
+
+	<!-- 	FUNKCE	-->
+	<section id="funkce">
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Lorem ipsum.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Impedit, at.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Vitae, quisquam.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Nesciunt, incidunt?</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Saepe, possimus.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+		<div class="box">
+			<i class="fas fa-signal"></i>
+			<h2>Odit, totam.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+	</section>
+
+	<!-- STATISTIKY -->
+	<section id="statistiky">
+		<div class="stat-vlevo">
+			<img src="frontend/images/statisktiky.jpg" alt="" class="obrazek">
+		</div>
+		<div class="stat-vpravo">
+			<h2>Lorem ipsum dolor sit.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, atque nam, placeat, sit illum corrupti nisi quas sapiente, non nostrum molestias ad illo? Atque maiores sed quod veritatis, exercitationem nesciunt? Eum labore saepe esse ducimus beatae nam, voluptates necessitatibus totam.</p>
+			<a href="" class="btn">Lorem</a>
+		</div>
+	</section>
+
+	<!-- PATICKA -->
+	<footer id="paticka">
+			<p>Vytvořil &copy; Janko 2018</p>
+		</footer>	
+
+    </body>
 </html>
