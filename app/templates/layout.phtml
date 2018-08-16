@@ -17,85 +17,25 @@
     <body>
     <!-- NAVIGACE -->	
 	<nav id="navigace">
+		<a href="/" class="logo">HOME</a>
 		<ul>
-			<li><a href="/">Úvod</a></li>
-			<li><a href="/vypis">Výpis</a></li>
-			<li><a href="/pridat">Přidat</a></li>
-			<li><a href="/admin">Admin</a></li>
+			<li><a href="#">lorem</a></li>
+			<li><a href="#">ipsum</a></li>
+			<li><a href="#">lorem</a></li>
 		</ul>
 	</nav>
-	
+
 	<!-- HEADER -->
 	<header id="hlavicka">
-		<h1>Naše domácnost...</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		<div class="tlacitka">
-			<a href="/vypis" class="btn-light">Výpis</a>
-			<a href="/pridat" class="btn-light">Přidat</a>
-		</div>
+		<h1>Administrace</h1>
+		<a href="#" class="btn">Vstup</a>
 	</header>
 
-	<!-- 	FUNKCE	-->
-	<section id="funkce">
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Lorem ipsum.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
+	<main>
+		<div class="kalendar">
+			<?php $this->controller->renderTemplate(); ?>
 		</div>
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Impedit, at.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Vitae, quisquam.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Nesciunt, incidunt?</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Saepe, possimus.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-		<div class="box">
-			<i class="fas fa-signal"></i>
-			<h2>Odit, totam.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-	</section>
-
-	<!-- STATISTIKY -->
-	<section id="statistiky">
-		<div class="stat-vlevo">
-			<img src="frontend/images/statisktiky.jpg" alt="" class="obrazek">
-		</div>
-		<div class="stat-vpravo">
-			<h2>Lorem ipsum dolor sit.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, atque nam, placeat, sit illum corrupti nisi quas sapiente, non nostrum molestias ad illo? Atque maiores sed quod veritatis, exercitationem nesciunt? Eum labore saepe esse ducimus beatae nam, voluptates necessitatibus totam.</p>
-			<a href="" class="btn">Lorem</a>
-		</div>
-	</section>
-
-	<!-- PATICKA -->
-	<footer id="paticka">
-			<p>Vytvořil &copy; Janko 2018</p>
-		</footer>	
+	</main>
 
     </body>
 </html>

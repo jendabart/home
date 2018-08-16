@@ -1,3 +1,4 @@
+/* variables */
 :root {
 	--primary: #ddd;
 	--dark: #333;
@@ -7,158 +8,28 @@
 
 html {
 	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
+	font-family: sans-serif;
 	color: var(--dark);
-	font-size: 18px;
 }
 
 body {
 	background: #ccc;
-	margin: 30px 50px;
+	margin: 0;
+	padding: 0; 
 	line-height: 1.4;
 }
 
-a {
-	text-decoration: none;
-	color: var(--light);
-}
+/*  NAVIGACE  0.6rem display grid flex */
 
-li {
-	list-style: none;
-}
 
-ul {
-	padding: 0px;
-}
 
-.btn {
-	display: inline-block;
-	padding: 1rem 2.5rem;
-	color: var(--light);
-	background: var(--dark);
-	box-shadow: var(--shadow);
-}
 
-.btn:hover {
-	color:  var(--dark);
-	background: var(--light);
-}
 
-.btn-light {
-	display: inline-block;
-	padding: 1rem 2.5rem;
-	color: var(--dark);
-	background: var(--primary);
-	box-shadow: var(--shadow);
-}
 
-.btn-light:hover {
-	color: var(--primary);
-	background: var(--dark);
-}
 
-	/*  MENU  */
-#navigace > ul {
-	display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(4, 1fr);
-	align-items: center;
-}
 
-#navigace > ul > li > a {
-	display: block;
-	padding: 0.8rem;
-	background: var(--primary);
-	color: var(--dark);
-	text-align: center;
-	font-size: 1.1rem;
-	box-shadow: var(--shadow);
-}
 
-#navigace ul > li > a:hover {
-	background: var(--dark);
-	color: var(--primary);
-}
 
-	/* HEADER */
-#hlavicka {
-	color: var(--light);
-	min-height: 500px;
-	background: url(../images/header.jpg);
-	background-size: cover;
-	background-position: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	padding: 3rem;
-}
-
-#hlavicka h1{
-	color: var(--light);
-	font-size: 4rem;
-}
-
-.tlacitka a:last-child {
-	margin-left: 1rem;
-}
-
-	/* FUNKCE */
-
-#funkce {
-	display: grid;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	margin: 1rem 0rem;
-
-}
-
-#funkce .box {
-	background: var(--primary);
-	box-shadow: var(--shadow);
-	padding: 1rem;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-#funkce .box i {
-	font-size: 5rem;
-}
-
-	/*	STATISTIKY */
-
-#statistiky {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	padding: 3rem;
-	background: var(--primary);
-	box-shadow: var(--shadow);
-	grid-gap: 1rem;
-}
-
-#statistiky img {
-	width: 100%;
-	height: auto;
-}
-
-	/* FOOOTER */
-#paticka {
-	text-align: center;
-}
-
-/* RESPONZIVE */
-
-@media(max-width: 700px){
-	body {
-		margin: 1rem;
-	}
-
-	#navigace > ul {
-		grid-template-columns: 1fr;
-	}
-
-	#statistiky {
-	grid-template-columns: 1fr;
-	}
+.event{
+	color:red;
 }
