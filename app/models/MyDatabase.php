@@ -1,11 +1,7 @@
 <?php
 class MyDatabase
 {
-	private $connection;
-	private $host = "localhost";
-	private $database = "home";
-	private $user = "janko";
-	private $password = "8b56689a3a";
+
 
 	private $settings = array(
 	 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
